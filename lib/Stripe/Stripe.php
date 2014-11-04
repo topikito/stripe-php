@@ -9,7 +9,7 @@ abstract class Stripe
   /**
    * @var string The base URL for the Stripe API.
    */
-  public static $apiBase = 'https://api.stripe.com';
+  public static $apiBase;
   /**
    * @var string|null The version of the Stripe API to use for requests.
    */
@@ -17,7 +17,7 @@ abstract class Stripe
   /**
    * @var boolean Defaults to true.
    */
-  public static $verifySslCerts = true;
+  public static $verifySslCerts = false;
   const VERSION = '1.17.2';
 
   /**
@@ -69,5 +69,15 @@ abstract class Stripe
   public static function setVerifySslCerts($verify)
   {
     self::$verifySslCerts = $verify;
+  }
+  
+  /**
+   * Sets the base URL for the Stripe API
+   *
+   * @param string $apiKBase
+   */
+  public static function setApiBase($apiBase)
+  {
+    self::$apiBase = $apiBase;
   }
 }
