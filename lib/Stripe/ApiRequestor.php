@@ -253,11 +253,12 @@ class Stripe_ApiRequestor
 
     $stripeToken = Stripe::getToken();
     if(!is_null($stripeToken)){
-      if(strpos($absUrl,'?')){
-        $absUrl .= "&token={$stripeToken}";
+      if(strpos($absUrl,'?') === false){
+        $glue = '?';
       } else {
-        $absUrl .= "?token={$stripeToken}";
+        $glue = '&';
       }
+      $absUrl .= $glue . 'token=' . $stripeToken;
     }
 
     $absUrl = self::utf8($absUrl);
