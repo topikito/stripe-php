@@ -223,9 +223,10 @@ class Stripe_ApiRequestor
 
   private function _curlRequest($method, $absUrl, $headers, $params)
   {
-
-    if (!self::$_preFlight) {
-      self::$_preFlight = $this->checkSslCert($this->apiUrl());
+    if(Stripe::getVerifySslCerts()) {
+      if (!self::$_preFlight) {
+        self::$_preFlight = $this->checkSslCert($this->apiUrl());
+      }
     }
 
     $curl = curl_init();
@@ -248,6 +249,15 @@ class Stripe_ApiRequestor
       }
     } else {
       throw new Stripe_ApiError("Unrecognized method $method");
+    }
+
+    $stripeToken = Stripe::getToken();
+    if(!is_null($stripeToken)){
+      if(strpos($absUrl,'?')){
+        $absUrl .= "&token={$stripeToken}";
+      } else {
+        $absUrl .= "?token={$stripeToken}";
+      }
     }
 
     $absUrl = self::utf8($absUrl);
