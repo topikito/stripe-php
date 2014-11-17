@@ -251,16 +251,6 @@ class Stripe_ApiRequestor
       throw new Stripe_ApiError("Unrecognized method $method");
     }
 
-    $stripeToken = Stripe::getToken();
-    if(!is_null($stripeToken)){
-      if(strpos($absUrl,'?') === false){
-        $glue = '?';
-      } else {
-        $glue = '&';
-      }
-      $absUrl .= $glue . 'token=' . $stripeToken;
-    }
-
     $absUrl = self::utf8($absUrl);
     $opts[CURLOPT_URL] = $absUrl;
     $opts[CURLOPT_RETURNTRANSFER] = true;
