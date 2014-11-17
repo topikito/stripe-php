@@ -223,9 +223,10 @@ class Stripe_ApiRequestor
 
   private function _curlRequest($method, $absUrl, $headers, $params)
   {
-
-    if (!self::$_preFlight) {
-      self::$_preFlight = $this->checkSslCert($this->apiUrl());
+    if(Stripe::getVerifySslCerts()) {
+      if (!self::$_preFlight) {
+        self::$_preFlight = $this->checkSslCert($this->apiUrl());
+      }
     }
 
     $curl = curl_init();

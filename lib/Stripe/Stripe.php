@@ -18,6 +18,7 @@ abstract class Stripe
    * @var boolean Defaults to true.
    */
   public static $verifySslCerts = false;
+
   const VERSION = '1.17.2';
 
   /**
