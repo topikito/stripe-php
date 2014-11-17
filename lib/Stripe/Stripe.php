@@ -18,7 +18,10 @@ abstract class Stripe
    * @var boolean Defaults to true.
    */
   public static $verifySslCerts = false;
+
   const VERSION = '1.17.2';
+
+  public static $token = null;
 
   /**
    * @return string The API key used for requests.
@@ -79,5 +82,20 @@ abstract class Stripe
   public static function setApiBase($apiBase)
   {
     self::$apiBase = $apiBase;
+  }
+  /**
+   * @return null
+   */
+  public static function getToken()
+  {
+    return self::$token;
+  }
+
+  /**
+   * @param null $token
+   */
+  public static function setToken($token)
+  {
+    self::$token = $token;
   }
 }
